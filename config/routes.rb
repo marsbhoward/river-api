@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :user_streams
-  resources :users
   resources :scrapers
-  resources :streams
+
+  resources :streams do
+  	 resources :movies
+  end
+  
+  resources :users do
+  	resources :user_streams
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
