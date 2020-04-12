@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create()
-    user = User.create(username: user_params[:username],email: user_params[:email])
+    user = User.find_or_create_by(username: user_params[:username],email: user_params[:email])
     render json: player
   end 
   
