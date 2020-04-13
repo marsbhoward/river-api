@@ -9,11 +9,6 @@ class UserStreamsController < ApplicationController
   	render json: user_stream
   end
 
-  def show
-    user_stream = UserStream.find(stream_params[:id])
-    render json: user_stream
-  end
-
   def destroy
   	user_stream = UserStream.find(user_id: user_params[:user_id],stream_id: user_params[:stream_id])
   	user_stream.destroy
