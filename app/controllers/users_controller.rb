@@ -6,10 +6,11 @@ class UsersController < ApplicationController
 
   def create()
     user = User.find_or_create_by(username: user_params[:username],email: user_params[:email])
-    Stream.all.each do |stream|
+    streams = Stream.all
+    streams.each do |stream|
       user_stream = UserStream.find_or_create_by(user_id: user_params[:id],stream_id: stream.id, selected: true)
     end
-    render json: player
+    render json: user
   end 
   
   private
