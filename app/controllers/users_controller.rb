@@ -6,6 +6,9 @@ class UsersController < ApplicationController
 
   def create()
     user = User.find_or_create_by(username: user_params[:username],email: user_params[:email])
+    Stream.each do |stream|
+      user.user_games.create(user_id: user_params[:id],stream_id: stream.id)
+    end
     render json: player
   end 
   
