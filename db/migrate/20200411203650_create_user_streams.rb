@@ -3,6 +3,7 @@ class CreateUserStreams < ActiveRecord::Migration[6.0]
     create_table :user_streams do |t|
       t.references :user, null: false, foreign_key: true
       t.references :stream, null: false, foreign_key: true
+      t.string :selected, :default => "yes"
 
       t.timestamps
     end
