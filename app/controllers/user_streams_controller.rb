@@ -5,7 +5,7 @@ class UserStreamsController < ApplicationController
   end
 
   def create
-  	user_stream = UserStream.find_or_create_by(user_id: user_stream_params[:user.id], stream_id: user_stream_params[:stream_id])
+  	user_stream = UserStream.find_or_create_by(user_id: user_stream_params[:user.id], stream_id: user_stream_params[:stream_id], selected: true)
   	render json: user_stream
   end
 
