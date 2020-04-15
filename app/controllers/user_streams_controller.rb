@@ -5,9 +5,7 @@ class UserStreamsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: user_params[:user_email])
-    stream = Stream.find_by(name: stream_params[:stream_name])
-  	user_stream = UserStream.find_or_create_by(user_id: user.id, stream_id: stream.id)
+  	user_stream = UserStream.find_or_create_by(user_id: userstream_params[:user.id], stream_id: userstream_params[:stream_id])
   	render json: user_stream
   end
 
@@ -18,15 +16,6 @@ class UserStreamsController < ApplicationController
   end
 
   def userstream_params
-    params.permit(:user_id,:stream_id)
+    params.require(:user_stream).permit(:user_id,:stream_id)
   end  
-
-  def user_params
-    params.permit(:user_email)
-  end
-
-  def stream_params
-    params.permit(:stream_name)
-  end
-
 end
