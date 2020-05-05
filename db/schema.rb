@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_210210) do
   create_table "user_streams", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "stream_id", null: false
+    t.boolean "selected", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["stream_id"], name: "index_user_streams_on_stream_id"

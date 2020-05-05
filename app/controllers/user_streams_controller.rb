@@ -9,6 +9,11 @@ class UserStreamsController < ApplicationController
   	render json: user_stream
   end
 
+  def update
+    user_stream = UserStream.find_by(user_id: user_stream_params[:user_id],stream_id: user_stream_params[:stream_id])
+    user_stream.update_attributes(user_stream_params)
+  end
+
   def destroy
   	user_stream = UserStream.find_by(user_id: user_stream_params[:user_id],stream_id: user_stream_params[:stream_id])
   	user_stream.destroy

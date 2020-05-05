@@ -25,7 +25,7 @@ default: &default
 
 development:
   <<: *default
-  database: river-api_development
+  database: river-api
 
 
 # Warning: The database defined as "test" will be erased and
