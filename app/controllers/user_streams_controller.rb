@@ -12,6 +12,7 @@ class UserStreamsController < ApplicationController
   def show
     user_stream = UserStream.find_by(user_id: user_stream_params[:user_id],stream_id: user_stream_params[:stream_id])
     render json: user_stream
+  end
 
   def update
     user_stream = UserStream.find_by(user_id: user_stream_params[:user_id],stream_id: user_stream_params[:stream_id])
