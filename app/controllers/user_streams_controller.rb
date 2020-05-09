@@ -10,8 +10,8 @@ class UserStreamsController < ApplicationController
   end
 
   def show
-    user_stream = UserStream.find_by(user_id: user_stream_params[:user_id],stream_id: user_stream_params[:stream_id])
-    render json: user_stream
+    user_streams = UserStream.where(user_id: user_stream_params[:user_id])
+    render json: user_streams
   end
 
   def update
