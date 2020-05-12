@@ -15,7 +15,7 @@ class UserStreamsController < ApplicationController
   end
 
   def update
-    user_stream = UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id])
+    user_stream = UserStream.find_or_create_by(user_id: user_stream_params[:user_id], stream_id: user_stream_params[:stream_id])
      if user_stream.update_attributes(user_stream_params)
       render :json => {}, :status => :ok
     else
