@@ -16,7 +16,11 @@ class UserStreamsController < ApplicationController
 
   def update
     user_stream = UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id])
-    render json: user_stream
+     if user_stream.update_attributes(user_stream_params)
+      render :json => {}, :status => :ok
+    else
+      render :json => {}, :status => :bad_request
+    end
   end
 
   def destroy
