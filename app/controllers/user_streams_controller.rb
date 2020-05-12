@@ -16,7 +16,7 @@ class UserStreamsController < ApplicationController
 
   def update
     user_stream = UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id])
-    user_stream.update_attributes(user_stream_params)
+    user_stream.update(:selected => user_stream_params[:selected])
     render json: user_stream
   end
 
@@ -27,6 +27,6 @@ class UserStreamsController < ApplicationController
   end
 
   def user_stream_params
-    params.permit(:user_id,:stream_id,:id)
+    params.permit(:user_id,:stream_id,:id,:selected)
   end  
 end
