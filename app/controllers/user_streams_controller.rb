@@ -15,8 +15,8 @@ class UserStreamsController < ApplicationController
   end
 
   def update
-    user_stream = UserStream.find(user_stream_params[:id])
-    UserStream.find(user_stream_params[:id]).update(:selected => user_stream_params[:selected])
+    user_stream = UserStream.find_by(user_stream_params[:id])
+    UserStream.find_by(user_stream_params[:id]).update(:selected => user_stream_params[:selected])
     render json: user_stream
   end
 
