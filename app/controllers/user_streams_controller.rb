@@ -16,11 +16,8 @@ class UserStreamsController < ApplicationController
 
   def update
     user_stream = UserStream.find_or_create_by(user_id: user_stream_params[:user_id], stream_id: user_stream_params[:stream_id], selected: user_stream_params[:selected])
-     if user_stream.update_attributes(user_stream_params)
-      render :json => {}, :status => :ok
-    else
-      render :json => {}, :status => :bad_request
-    end
+    UserStream.find_or_create_by(user_id: user_stream_params[:user_id], stream_id: user_stream_params[:stream_id], selected: user_stream_params[:selected]).update(:selected => user_stream_params[:selected])
+    render json: user_stream
   end
 
   def destroy
