@@ -16,7 +16,7 @@ class UserStreamsController < ApplicationController
 
   def update
     user_stream = UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id])
-    user_stream.update(:selected => user_stream_params[:selected])
+    UserStream.update(user_stream.id, :selected => user_stream_params[:selected])
     render json: user_stream
   end
 
