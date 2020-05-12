@@ -15,8 +15,8 @@ class UserStreamsController < ApplicationController
   end
 
   def update
-    UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id]).update(:selected => user_stream_params[:selected])
-    render body: nil, status: :no_content
+    user_stream = UserStream.where(user_id: user_stream_params[:user_id],id: user_stream_params[:id])
+    render json: user_stream
   end
 
   def destroy
