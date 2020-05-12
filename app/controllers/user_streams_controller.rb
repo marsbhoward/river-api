@@ -1,7 +1,7 @@
 class UserStreamsController < ApplicationController
   def index
-  	user_streams = UserStream.where(user_id: user_stream_params[:user_id])
-  	render json: user_streams
+  	user_stream = UserStream.where(user_id: user_stream_params[:user_id])
+  	render json: user_stream
   end
 
   def create
