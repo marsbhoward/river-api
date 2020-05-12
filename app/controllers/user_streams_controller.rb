@@ -1,7 +1,7 @@
 class UserStreamsController < ApplicationController
   def index
-  	user_stream = UserStream.where(user_id: user_stream_params[:user_id])
-  	render json: user_stream
+  	user_streams = UserStream.where(user_id: user_stream_params[:user_id])
+  	render json: user_streams
   end
 
   def create
@@ -31,7 +31,7 @@ class UserStreamsController < ApplicationController
   end
 
   def user_stream_params
-    params.require(:user_stream).permit(:user_id,:stream_id,:id,:selected)
+    params.permit(:user_id,:stream_id,:id,:selected)
   end  
 end
 
