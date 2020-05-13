@@ -15,13 +15,9 @@ class UserStreamsController < ApplicationController
   end
 
   def update
-    user_stream = UserStream.find_by(user_stream_params)
-
-    if user_stream.update(user_stream_params)
-      render json: UserStream.new(user_stream).serialized_json
-    else
-      render body: nil, status: :no_content
-    end
+    user_stream = UserStream.find_by(user_id: user_stream_params[:user_id], stream_id: user_stream_params[:stream_id])
+    user_stream.update(:selected => user_stream_params[:selected])
+    render json: user_stream
   end
 
   def destroy
@@ -36,7 +32,3 @@ class UserStreamsController < ApplicationController
 end
 
 
-  #def update
-  #  user_stream = UserStream.find_or_create_by(user_id: user_stream_params[:user_id], stream_id: user_stream_params[:stream_id], selected: user_stream_params[:selected]).update(:selected => user_stream_params[:selected])
-  #  render json: user_stream
-  #end
