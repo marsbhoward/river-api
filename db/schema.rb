@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 2020_04_11_210210) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
+    t.string "year"
+    t.string "youtube_id"
     t.bigint "stream_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
