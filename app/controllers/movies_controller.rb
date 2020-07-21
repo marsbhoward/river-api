@@ -6,7 +6,7 @@ class MoviesController < ApplicationController
 	end
 
   def update
-    movie = Movie.find(params[:movie_id]))
+    movie = Movie.find_by(title: movies_params[:title], year: movie_params[:year])
     movie.update(:youtube_id => movies_params[:youtube_id])
     render json: movie
   end	
