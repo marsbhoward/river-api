@@ -21,8 +21,11 @@ class Scraper < ApplicationRecord
 	                element = element[0][1]
 	                element = element.to_s.sub("/movie/","")
 	                year = (element.split(//).last(4).join).to_s
-	                element = element[0...-5]  
-	                movie_collection[index] = [id,element,year]
+	                element = element[0...-5] 
+	                if movie_collection.include?([element,year])
+	                else 
+	                	movie_collection[index] = [id,element,year]
+	                end
 	              elsif (index >40)
 	              else
 	                element = element[0]
@@ -30,7 +33,10 @@ class Scraper < ApplicationRecord
 	                element = element.to_s.sub("/movie/","")
 	                year = (element.split(//).last(4).join).to_s
 	                element = element[0...-5] 
-	                movie_collection[index] = [id,element,year]
+	                if movie_collection.include?([element,year])
+	                else 
+	                	movie_collection[index] = [id,element,year]
+	                end
 	              end
 	          index = index + 1
 	          id = id + 1
@@ -42,7 +48,10 @@ class Scraper < ApplicationRecord
       					xindex = 1
       					movie_title = movie[xindex][1];
       					movie_year = movie[xindex][2];
+      					if current_stream.movies.exists?(title: movie_title, year: movie_year)
+      					else
       					current_stream.movies.create(title: movie_title, year: movie_year);
+      					end
       					xindex = xindex + 1;
       				
       			end

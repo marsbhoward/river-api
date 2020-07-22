@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_210210) do
+ActiveRecord::Schema.define(version: 2020_07_22_145319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_210210) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["stream_id"], name: "index_movies_on_stream_id"
+    t.index ["title", "year"], name: "index_movies_on_title_and_year", unique: true
   end
 
   create_table "scrapers", force: :cascade do |t|
