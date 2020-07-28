@@ -55,6 +55,8 @@ class Scraper < ApplicationRecord
       					xindex = xindex + 1;
       				
       			end
+
+      		current_stream.movies.order(:id)
 			return current_stream.movies
 	end
 end
