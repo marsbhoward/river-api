@@ -43,9 +43,8 @@ class Scraper < ApplicationRecord
 	          end
 	          }
 
-	          	moive_List = movie_collection.id.sort
 
-      			moive_List.each_with_index do | movie|
+      			movie_collection.each_with_index do | movie|
       					xindex = 1
       					movie_title = movie[xindex][1];
       					movie_year = movie[xindex][2];
