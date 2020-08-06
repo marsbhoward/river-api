@@ -12,9 +12,7 @@ class Scraper < ApplicationRecord
     		id = 1
     		year = "0"
 
-    		Stream.each do |stream| {
-    			Stream.movies.delete_all
-    		}
+    		Movie.delete_all
 
      		#iterates through all of the img tags and selects those that contain class value
 	   movies.to_a.each { |element| 
