@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
 	belongs_to :stream
-	validates :year, uniqueness: { scope: :title }
+	validates :year, uniqueness: { scope: :slug }
 end
