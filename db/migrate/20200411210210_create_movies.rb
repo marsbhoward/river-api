@@ -1,6 +1,7 @@
 class CreateMovies < ActiveRecord::Migration[6.0]
   def change
     create_table :movies do |t|
+      t.string :slug
  	  t.string :title
  	  t.string :year
  	  t.string :youtube_id

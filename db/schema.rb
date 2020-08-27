@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_194002) do
+ActiveRecord::Schema.define(version: 2020_07_22_145319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "movies", force: :cascade do |t|
     t.string "slug"
+    t.string "title"
     t.string "year"
     t.string "youtube_id"
     t.bigint "stream_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "title"
     t.index ["slug", "year"], name: "index_movies_on_slug_and_year", unique: true
     t.index ["stream_id"], name: "index_movies_on_stream_id"
   end
