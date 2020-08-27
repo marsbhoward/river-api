@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
   end	
 
   	def movies_params
-    	params.permit(:id,:year,:youtube_id)
+    	params.permit(:id,:slug,:year,:youtube_id)
   	end
 
    	def stream_params
