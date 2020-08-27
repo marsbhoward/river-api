@@ -1,8 +1,13 @@
 class MoviesController < ApplicationController
 
+  #change to create
 	def index
-		movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
-  		render json: movies
+    if params[:stream_id] != nil 
+		  movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
+    else
+      movies = Movie.all
+    end
+      render json: movies
 	end
 
   def show
