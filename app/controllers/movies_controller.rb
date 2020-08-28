@@ -18,11 +18,12 @@ class MoviesController < ApplicationController
   def update
     movie = Movie.find_by(id: movies_params[:id], stream_id: stream_params[:stream_id])
     movie.update(:youtube_id => movies_params[:youtube_id])
+    movie.update(:title => movies_params[:title])
       render json: movie
   end	
 
   	def movies_params
-    	params.permit(:id,:slug,:year,:youtube_id)
+    	params.permit(:id,:slug,:year,:youtube_id,:title)
   	end
 
    	def stream_params
