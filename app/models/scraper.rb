@@ -50,7 +50,8 @@ class Scraper < ApplicationRecord
       					xindex = 1
       					movie_title = movie[xindex][1];
       					movie_year = movie[xindex][2];
-      					if current_stream.movies.exists?(slug: movie_title, year: movie_year)
+      					if Movie.exists?(slug: movie_title, year: movie_year)
+      						next
       					else
       					current_stream.movies.create(slug: movie_title, year: movie_year);
       					end
