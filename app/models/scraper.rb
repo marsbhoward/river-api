@@ -13,7 +13,7 @@ class Scraper < ApplicationRecord
     		year = "0"
 
     		#deletes all movies (needs to be done on first of each month)
-    		#Movie.delete_all
+    		Movie.delete_all
 
      		#iterates through all of the img tags and selects those that contain class value
 	   movies.to_a.each { |element| 
