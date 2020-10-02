@@ -14,10 +14,10 @@ class Scraper < ApplicationRecord
     		year = "0"
 
 
-    		if Time.now.strftime("%d") != 1 && rCount == 1
+    		if Time.now.strftime("%d") != '01' && rCount == 1
     			rCount = 0
     		#deletes all movies (needs to be done on first of each month)
-    		elsif Time.now.strftime("%d") == 1 && rCount == 0
+    		elsif Time.now.strftime("%d") == '01' && rCount == 0
     			rCount = 1
     		#this will cause undesired behavior runnimg mulitple times on first
 				Movie.delete_all 
