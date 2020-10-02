@@ -21,7 +21,7 @@ class Scraper < ApplicationRecord
     		#	rCount = 1
     		#this will cause undesired behavior runnimg mulitple times on first
 				Movie.delete_all 
-			end
+			#end
 
      		#iterates through all of the img tags and selects those that contain class value
 	   movies.to_a.each { |element| 
