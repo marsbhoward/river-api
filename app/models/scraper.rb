@@ -5,7 +5,6 @@ class Scraper < ApplicationRecord
 	def get_movies(stream)
 		current_stream = Stream.find_by(name:stream.name)
 		movie_collection = {}
-		rCount = 0
 
 			movies =  Nokogiri::HTML(open(current_stream.url)).css('a')
 
@@ -14,14 +13,10 @@ class Scraper < ApplicationRecord
     		year = "0"
 
 
-    		#if Time.now.strftime("%d") != "01" && rCount == 1
-    		#	rCount = 0
+    		if Time.now.strftime("%d") != "01" && Time.now.strftime("%k") < 8
     		#deletes all movies (needs to be done on first of each month)
-    		#elsif Time.now.strftime("%d") == "01" && rCount == 0
-    		#	rCount = 1
-    		#this will cause undesired behavior runnimg mulitple times on first
 				Movie.delete_all 
-			#end
+			end
 
      		#iterates through all of the img tags and selects those that contain class value
 	   movies.to_a.each { |element| 
