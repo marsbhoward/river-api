@@ -13,7 +13,7 @@ class Scraper < ApplicationRecord
     		year = "0"
 
 
-    		if Time.now.strftime("%d") != "01" && Time.now.strftime("%k") < 8
+    		if Time.now.strftime("%d") != "01" && Time.now.strftime("%k").to_i < 8
     		#deletes all movies (needs to be done on first of each month)
 				Movie.delete_all 
 			end
