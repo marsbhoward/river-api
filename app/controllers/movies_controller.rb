@@ -17,8 +17,14 @@ class MoviesController < ApplicationController
 
   def update
     movie = Movie.find_by(id: movies_params[:id], stream_id: stream_params[:stream_id])
-    movie.update(:youtube_id => movies_params[:youtube_id])
-    movie.update(:title => movies_params[:title])
+    
+    if movies_params[:youtube_id] !== null 
+      movie.update(:youtube_id => movies_params[:youtube_id])
+    end
+
+    if movies_params[:title] !== null
+      movie.update(:title => movies_params[:title])
+    end
       render json: movie
   end	
 
