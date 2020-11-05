@@ -48,9 +48,8 @@ class Scraper < ApplicationRecord
 	          end
 	          }
 
-
-      			movie_collection.each_with_index do | movie|
-      					xindex = 1
+	          	xindex = 1
+      			movie_collection.each_with_index do | movie|	
       					movie_title = movie[xindex][1];
       					movie_year = movie[xindex][2];
       					if Movie.exists?(slug: movie_title, year: movie_year)
