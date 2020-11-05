@@ -48,8 +48,9 @@ class Scraper < ApplicationRecord
 	          end
 	          }
 
-	          	xindex = 1
-      			movie_collection.each_with_index do | movie|	
+
+      			movie_collection.each_with_index do | movie|
+      					xindex = 1
       					movie_title = movie[xindex][1];
       					movie_year = movie[xindex][2];
       					if Movie.exists?(slug: movie_title, year: movie_year)
@@ -57,8 +58,6 @@ class Scraper < ApplicationRecord
       					else
       					current_stream.movies.create(slug: movie_title, year: movie_year);
       					end
-      					xindex = xindex + 1;
-      				
       			end
 
       		current_stream.movies.order(:id)
