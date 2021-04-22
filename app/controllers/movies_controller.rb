@@ -6,6 +6,7 @@ class MoviesController < ApplicationController
 		  movies = Scraper.new.get_movies(Stream.find(params[:stream_id])).sort()
     else
       movies = Movie.all.sort()
+      puts movies
     end
       render json: movies
 	end

@@ -22,7 +22,6 @@ class Scraper < ApplicationRecord
 	   movies.to_a.each { |element| 
 	          if (element.to_s.include? '"css-1rashen e126mwsw1"')
 	              element = element.to_a
-				  puts element
 	              if index > 14 and index < 40
 	                element = element[0][1]
 	                element = element.to_s.sub("/movie/","")
