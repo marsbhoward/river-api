@@ -24,3 +24,5 @@ Stream.create(name: 'amc', url: "https://reelgood.com/movies/source/amc?filter-s
 Stream.create(name: 'fx', url: "https://reelgood.com/movies/source/fx?filter-sort=1")
 Stream.create(name: 'syfy', url: "https://reelgood.com/movies/source/syfy?filter-sort=1")
 Stream.create(name: 'ifc', url: "https://reelgood.com/movies/source/ifc?filter-sort=1")
+Stream.create(name: 'peacock', url: "https://reelgood.com/movies/source/peacock?filter-sort=1")
+Stream.create(name: 'paramount', url: "https://reelgood.com/movies/source/paramount_plus?filter-sort=1")
