@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
 	def index
     if params[:stream_id] != nil 
 		  movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
+      movies = movies.sort()
     else
       movies = Movie.all.sort()
     end
