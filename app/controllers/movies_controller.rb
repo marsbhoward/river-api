@@ -26,6 +26,10 @@ class MoviesController < ApplicationController
     if movies_params[:title] != nil
       movie.update(:title => movies_params[:title])
     end
+
+    if movie_params[:poster] != nil 
+      movie.update(:poster => movie_params[:poster])
+    end
       render json: movie
   end	
 
