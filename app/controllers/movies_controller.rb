@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
       movie.update(:youtube_id => movies_params[:youtube_id])
     end
 
-    if movies_params[:title] != nil && movies_params[:poster] != nil
+    if movies_params[:title] != nil
       movie.update(:title => movies_params[:title], :poster => movie_params[:poster])
     end
 
