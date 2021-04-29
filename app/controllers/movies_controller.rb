@@ -23,15 +23,14 @@ class MoviesController < ApplicationController
       movie.update(:youtube_id => movies_params[:youtube_id])
     end
 
-    if movies_params[:title] != nil
-      movie.update(:title => movies_params[:title], :poster => movie_params[:poster])
+    if movies_params[:title] != nil || movies_params[:poster] != nil
+      movie.update(:title => movies_params[:title], :poster => movies_params[:poster])
     end
-
       render json: movie
   end	
 
   	def movies_params
-    	params.permit(:id,:slug,:year,:youtube_id,:title)
+    	params.permit(:id,:slug,:year,:youtube_id,:title,:poster)
   	end
 
    	def stream_params
