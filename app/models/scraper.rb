@@ -31,6 +31,10 @@ class Scraper < ApplicationRecord
 				end
 				if movie_collection.include?([element,year])
 				else 
+					if element.include?("soul") && current_stream.id === 5
+						element = "soul"
+						year = 2000
+					  end					
 					movie_collection.push([id,element,year])
 					id = id + 1
 				end
