@@ -6,9 +6,16 @@ class MoviesController < ApplicationController
 		  movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
       movies = Movie.where(stream_id: params[:stream_id]).sort()
     else
+      streams_list = []
+      streams_list << Stream.all
+      count = -1
+      streams_list.each do |stream|
+        count = count + 1
+        render json: stream[count]
+      end
       movies = Movie.all.sort()
     end
-      render json: movies
+      #render json: movies
 	end
 
   def show
