@@ -8,9 +8,19 @@ class UsersController < ApplicationController
     user = User.find_or_create_by(username: user_params[:username],email: user_params[:email])
     render json: user
   end 
-  
+
+  def show
+    user = User.find_by(id: user_params[:id])
+    render json: user
+  end
+
+  def update
+    user = User.find_by(id: user_params[:id])
+    user.update(:darkmode => user_params[:darkmode])
+    render json: user
+  end
   private
   	def user_params
-    	params.require(:user).permit(:id, :username, :email)
+    	params.permit(:id, :username, :email, :darkmode)
   	end   	
 end
