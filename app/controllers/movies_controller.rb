@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
       Movie.delete_all 
       Scraper.first.add
      end
-     if Time.now.strftime("%d") == "02"
+     if Time.now.strftime("%d") !== "01" && Scraper.first.count > 0
       Scraper.first.reset
      end
     if params[:stream_id] != nil 
