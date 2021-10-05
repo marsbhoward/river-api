@@ -2,29 +2,33 @@ class MoviesController < ApplicationController
 
   #change to create
 	def index
-    #count needs to be added to db
-    if Time.now.strftime("%d") == "01" && Scraper.first.count < 1
-      #deletes all movies (needs to be done on first of each month)
-      Movie.delete_all 
-      Scraper.first.add
-    elsif Time.now.strftime("%d") != "01" && Scraper.first.count > 0
-      Scraper.first.reset
-      #else case for testing enviroment to force first of the month behavior
-    else
-      Movie.delete_all 
-      Scraper.first.add
-    end
 
+    ##old process
+    #count needs to be added to db
+    #if Time.now.strftime("%d") == "01" && Scraper.first.count < 1
+      #deletes all movies (needs to be done on first of each month)
+    #  Movie.delete_all 
+    #  Scraper.first.add
+    #elsif Time.now.strftime("%d") != "01" && Scraper.first.count > 0
+    #  Scraper.first.reset
+      #else case for testing enviroment to force first of the month behavior
+    #else
+    #  Movie.delete_all 
+    #  Scraper.first.add
+    #end
+
+    if Stream.first.last_update != Time.now.strftime("%m")
+      Movie.delete_all 
+      Scraper.first.get_month
+      Stream.all.sort().each do |stream|
+        Scraper.first.get_movies(Stream.find(stream.id))
+      end  
+    end
     
     if params[:stream_id] != nil 
 		  #movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
       movies = Movie.where(stream_id: params[:stream_id]).sort()
     else
-      if Movie.count == 0
-        Stream.all.sort().each do |stream|
-          Scraper.first.get_movies(Stream.find(stream.id))
-        end  
-      end
       movies = Movie.all.sort()
     end
       render json: movies

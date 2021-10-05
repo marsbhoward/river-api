@@ -9,6 +9,9 @@ module ScraperUtilities
 
     def reset
         self.update(:count => 0)
-    end        
+    end
+
+    def get_month
+        self.update(:last_update => Time.now.strftime("%m"))
   
 end
