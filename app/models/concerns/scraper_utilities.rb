@@ -13,5 +13,6 @@ module ScraperUtilities
 
     def get_month
         self.update(:last_update => Time.now.strftime("%m"))
+    end
   
 end

@@ -7,50 +7,49 @@ class Scraper < ApplicationRecord
 
 	def get_movies(stream)
 		current_stream = Stream.find_by(name:stream.name)
-		movie_collection = []
-
-			movies =  Nokogiri::HTML(open(current_stream.url)).css('a')
-    		id = 0
-    		year = "0"
-
-		#iterates through all of the img tags and selects those that contain class value
-		movies.to_a.each { |element| 
-		if (element.to_s.include? '"css-1rashen e126mwsw1"')
-			element = element.to_a
-			element = element[0]
-			element = element[1]
-			element = element.to_s.sub("/movie/","")
-			year = (element.split(//).last(4).join).to_s
-			if year =~ /\d/
-				element = element[0...-5] 
-			else
-				year = 2021
+		movies =  Nokogiri::HTML(open(current_stream.url))
+		#movie_collection = []
+    	#id = 0
+    	#year = "0"
+	
+		movies = movies.at('script:contains("entities")').text.strip
+		movies= movies.split('entries')
+		movies = movies[1].split('@global":')
+		movies = movies.drop(1)
+		#scapes all info on first movie puts movies
+		
+		x = 0
+		while x < 50 && x < movies.length do
+		  view = movies[x].split(',')
+		  title = view[0].split(":")[1]
+		  slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+		  year = view[1].chomp('"')
+	
+			if year.include? ':'
+				year = year.split(':')[1]
+				year = year[1..4]
+		  	else
+			
 			end
-			if movie_collection.include?([element,year])
-			else 
-				if element.include?("soul") && current_stream.id === 5
-					element = "soul"
-					year = 2000
-				end					
-				movie_collection.push([id,element,year])
-				id = id + 1
+			
+			#skips movie if release year is not valid
+			if year.match(/[[:alpha:]]+$/)
+				x+=1
+				next
 			end
-		end
-		}
-
-
-		movie_collection.each do | movie|
-			movie_title = movie[1];
-			movie_year = movie[2];
-			if Movie.exists?(slug: movie_title, year: movie_year)
+			
+			# checks if movie with the current slug and year already exsits
+			# if movie exsists go to next entry without creating new movie
+			if Movie.exists?(slug: slug, year: year)
 				puts "movie already present"
+				x += 1
 				next
 			else
 				puts "movie created"
-				current_stream.movies.create(slug: movie_title, year: movie_year);
+				current_stream.movies.create(slug: slug, year: year);
 			end
-		end				
-		
+			x += 1
+		end
 
 		current_stream.movies.order(:id)
 		return current_stream.movies

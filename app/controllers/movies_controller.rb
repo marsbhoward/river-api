@@ -17,18 +17,22 @@ class MoviesController < ApplicationController
     #  Scraper.first.add
     #end
 
-    if Stream.first.last_update != Time.now.strftime("%m")
+    if Scraper.first.last_update != Time.now.strftime("%m")
       Movie.delete_all 
       Scraper.first.get_month
-      Stream.all.sort().each do |stream|
-        Scraper.first.get_movies(Stream.find(stream.id))
-      end  
+    else
+      
     end
     
     if params[:stream_id] != nil 
 		  #movies = Scraper.new.get_movies(Stream.find(params[:stream_id]))
       movies = Movie.where(stream_id: params[:stream_id]).sort()
     else
+      if Movie.count == 0
+        Stream.all.sort().each do |stream|
+          Scraper.first.get_movies(Stream.find(stream.id))
+        end  
+      end
       movies = Movie.all.sort()
     end
       render json: movies
