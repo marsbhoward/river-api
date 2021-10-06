@@ -18,7 +18,7 @@ class Scraper < ApplicationRecord
 		movies = movies.drop(1)
 		#scapes all info on first movie puts movies
 		
-		if current_stream.movie.count === 0
+		if current_stream.movies.count === 0
 			x = 0
 			while x < 50 && x < movies.length do
 			view = movies[x].split(',')
