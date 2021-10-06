@@ -7,18 +7,20 @@ class Scraper < ApplicationRecord
 
 	def get_movies(stream)
 		current_stream = Stream.find_by(name:stream.name)
-		movies =  Nokogiri::HTML(open(current_stream.url))
-		#movie_collection = []
-    	#id = 0
-    	#year = "0"
-	
-		movies = movies.at('script:contains("entities")').text.strip
-		movies= movies.split('entries')
-		movies = movies[1].split('@global":')
-		movies = movies.drop(1)
-		#scapes all info on first movie puts movies
-		
+
 		if current_stream.movies.count === 0
+			movies =  Nokogiri::HTML(open(current_stream.url))
+			#movie_collection = []
+			#id = 0
+			#year = "0"
+		
+			movies = movies.at('script:contains("entities")').text.strip
+			movies= movies.split('entries')
+			movies = movies[1].split('@global":')
+			movies = movies.drop(1)
+			#scapes all info on first movie puts movies
+		
+		
 			x = 0
 			while x < 50 && x < movies.length do
 			view = movies[x].split(',')
@@ -43,8 +45,6 @@ class Scraper < ApplicationRecord
 				# if movie exsists go to next entry without creating new movie
 				if Movie.exists?(slug: slug, year: year)
 					puts "movie already present"
-					x += 1
-					next
 				else
 					puts "movie created"
 					current_stream.movies.create(slug: slug, year: year);
