@@ -18,37 +18,39 @@ class Scraper < ApplicationRecord
 		movies = movies.drop(1)
 		#scapes all info on first movie puts movies
 		
-		x = 0
-		while x < 50 && x < movies.length do
-		  view = movies[x].split(',')
-		  title = view[0].split(":")[1]
-		  slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-		  year = view[1].chomp('"')
-	
-			if year.include? ':'
-				year = year.split(':')[1]
-				year = year[1..4]
-		  	else
-			
-			end
-			
-			#skips movie if release year is not valid
-			if year.match(/[[:alpha:]]+$/)
-				x+=1
-				next
-			end
-			
-			# checks if movie with the current slug and year already exsits
-			# if movie exsists go to next entry without creating new movie
-			if Movie.exists?(slug: slug, year: year)
-				puts "movie already present"
+		if current_stream.movie.count === 0
+			x = 0
+			while x < 50 && x < movies.length do
+			view = movies[x].split(',')
+			title = view[0].split(":")[1]
+			slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+			year = view[1].chomp('"')
+		
+				if year.include? ':'
+					year = year.split(':')[1]
+					year = year[1..4]
+				else
+				
+				end
+				
+				#skips movie if release year is not valid
+				if year.match(/[[:alpha:]]+$/)
+					x+=1
+					next
+				end
+				
+				# checks if movie with the current slug and year already exsits
+				# if movie exsists go to next entry without creating new movie
+				if Movie.exists?(slug: slug, year: year)
+					puts "movie already present"
+					x += 1
+					next
+				else
+					puts "movie created"
+					current_stream.movies.create(slug: slug, year: year);
+				end
 				x += 1
-				next
-			else
-				puts "movie created"
-				current_stream.movies.create(slug: slug, year: year);
 			end
-			x += 1
 		end
 
 		current_stream.movies.order(:id)
