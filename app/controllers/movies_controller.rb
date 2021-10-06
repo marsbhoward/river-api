@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
 	def index
 
-    if Scraper.first.last_update != Time.now.strftime("%m").to_s
+    if Scraper.first.last_update.to_s != Time.now.strftime("%m").to_s
       Movie.delete_all 
       Scraper.first.get_month
      
