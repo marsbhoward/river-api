@@ -14,32 +14,23 @@ class Scraper < ApplicationRecord
 			#id = 0
 			#year = "0"
 		
-			movies = movies.at('script:contains("entities")').text.strip
-			movies= movies.split('entries')
-			movies = movies[1].split('@global":')
-			movies = movies.drop(1)
+			#new process for tageting movies based on websites new flow.
+			scripts = movies.css("body script")
+    		target = scripts[3].text
+			script_array = target.split('@global')
 			#scapes all info on first movie puts movies
+			
 		
-		
-			x = 0
-			while x < 50 && x < movies.length do
-			view = movies[x].split(',')
-			title = view[0].split(":")[1]
-			slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
-			year = view[1].chomp('"')
-		
-				if year.include? ':'
-					year = year.split(':')[1]
-					year = year[1..4]
-				else
-				
-				end
-				
-				#skips movie if release year is not valid
-				if year.match(/[[:alpha:]]+$/)
-					x+=1
-					next
-				end
+			script_array.each do |segment|
+				next unless segment.include?('"title"') && segment[1]== "t"
+				#splits movie info into array
+				movie_array = segment.split ('","')
+				#splits array text into attributes and assigns them
+				title = movie_array[0].split(":")[1]
+				released_on = movie_array[1].split(':"')[1]
+				year = released_on.split('-')[0][0..3]
+				slug = movie_array[2].split('slug":"')[1]
+
 				
 				# checks if movie with the current slug and year already exsits
 				# if movie exsists go to next entry without creating new movie
@@ -47,7 +38,7 @@ class Scraper < ApplicationRecord
 					puts "movie already present"
 				else
 					puts "movie created"
-					current_stream.movies.create(slug: slug, year: year);
+					current_stream.movies.create(slug: slug, title: title, year: year);
 				end
 				x += 1
 			end
